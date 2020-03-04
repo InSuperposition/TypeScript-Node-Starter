@@ -11,9 +11,16 @@ const router = Router();
 async function handleLogin(req: Request, res: Response) {
 	try {
 		const now = Date.now();
-		const userData = req.body;
-		const user = await createUser(userData, now);
-		const event = await createEvent(AUTHENTICATION_LOGIN_EVENT, now);
+		const { email, password, ...restUserData } = req.body;
+
+		//TODO: query authentication
+		// - email exists
+		// - password matches
+		const userData = { ...restUserData, email };
+		const user = createUser(userData, now);
+
+		// Events
+		const event = createEvent(AUTHENTICATION_LOGIN_EVENT, now);
 
 		return res.status(OK).json({ user, event });
 	} catch (err) {

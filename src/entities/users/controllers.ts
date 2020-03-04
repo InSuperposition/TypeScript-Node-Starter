@@ -1,7 +1,7 @@
 import { User, UserData } from "./types";
 import { Users } from "./models";
 export function createUser(
-	{ email, phoneNumber }: UserData,
+	{ email, phoneNumber, password }: UserData,
 	now: number = Date.now(),
 ): User {
 	return {
