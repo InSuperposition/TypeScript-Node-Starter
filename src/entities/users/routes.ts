@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express";
 import { BAD_REQUEST, OK } from "http-status-codes";
+import { USERS_BASE_PATH } from "./constants";
 import { readUsers } from "./controllers";
 
 const router = Router();
@@ -15,6 +16,6 @@ async function handleReadUsers(req: Request, res: Response) {
 	}
 }
 
-router.get("/", handleReadUsers);
+router.get(USERS_BASE_PATH, handleReadUsers);
 
 export default router;
