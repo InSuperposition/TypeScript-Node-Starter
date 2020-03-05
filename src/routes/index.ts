@@ -5,11 +5,11 @@ import UserRouter from "../entities/users/routes";
 
 const router = Router();
 
-// services
+// service routes
 router.use("/authentication", AuthenticationRouter);
-
-// entities
 router.use("/events", EventRouter);
+
+// entity routes
 router.use("/users", UserRouter);
 
 export default router;
