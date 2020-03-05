@@ -1,6 +1,6 @@
 import { Router } from "express";
 import AuthenticationRouter from "../services/authentication/routes";
-import EventRouter from "../entities/events/routes";
+import EventRouter from "../services/events/routes";
 import UserRouter from "../entities/users/routes";
 
 const router = Router();
