@@ -57,7 +57,6 @@ export async function login(
 
 		// emit "LOGIN" event to event service
 		await Event.create({
-			...userCredentials,
 			userId: user.id,
 			type: AUTHENTICATION_LOGIN_EVENT_NAME,
 		});
