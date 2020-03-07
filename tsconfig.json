@@ -1,9 +1,9 @@
 {
 	"compilerOptions": {
-		"module": "commonjs",
+		"module": "UMD",
 		"esModuleInterop": true,
 		"allowSyntheticDefaultImports": true,
-		"target": "es6",
+		"target": "ES2019",
 		"noImplicitAny": true,
 		"moduleResolution": "node",
 		"sourceMap": true,
@@ -14,5 +14,5 @@
 		}
 	},
 	"include": ["src/**/*"],
-	"exclude": ["src/**/*.test.ts"]
+	"exclude": ["src/**/*.test.ts", "**/__mocks__/**/*.ts"]
 }

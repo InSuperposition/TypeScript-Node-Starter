@@ -3,3 +3,5 @@ export const AUTHENTICATION_LOGIN_EVENT = {
 	type: AUTHENTICATION_LOGIN_EVENT_NAME,
 };
 export const AUTHENTICATION_LOGIN_PATH = "/login";
+
+export const AUTHENTICATION_CREDENTIALS_PATH = "/credentials";

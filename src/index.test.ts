@@ -1,5 +1,5 @@
-describe("`identity` function", function() {
-	test("should return the value passed to it", function() {
-		expect(1).toEqual(2);
+describe("`identity` function", () => {
+	it("should return the value passed to it", () => {
+		expect(1).toEqual(3);
 	});
 });

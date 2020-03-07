@@ -1,3 +1,32 @@
-import { UserCredentials } from "./types";
+import { CredentialsRow, UserCredentials } from "./types";
+export let credentials: Array<CredentialsRow> = [];
 
-export const Authenticated: Array<UserCredentials> = [];
+import { v4 } from "uuid";
+
+export async function create(userCredentials: UserCredentials, userId: string) {
+	const credential = {
+		...userCredentials,
+		userId,
+		id: v4(),
+		created: Date.now(),
+		// mock up token, use middleware to handle
+		token: v4(),
+	};
+	return credential;
+}
+
+export async function save(credential: CredentialsRow) {
+	credentials = [...credentials, credential];
+	return credentials;
+}
+
+export async function getMany(filters: any) {
+	return credentials;
+}
+
+export async function getByEmail(email: string) {
+	const credential = credentials.find(c => c.email === email);
+	return credential;
+}
+
+export default { getMany, getByEmail, create, save };

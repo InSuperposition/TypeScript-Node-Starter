@@ -14,7 +14,7 @@
 	],
 	"license": "MIT",
 	"scripts": {
-		"start": "npm run serve",
+		"start": "npm run build && npm run watch-debug",
 		"build": "npm run build-ts && npm run lint",
 		"format": "prettier --write 'src/**/*.{t,j}s'",
 		"serve": "node dist/index.js",

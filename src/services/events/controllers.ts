@@ -1,18 +1,10 @@
-import { Event, EventData } from "./types";
-import { Events } from "./models";
+import { EventData } from "./types";
+import Event from "./models";
 
-export function createEvent(
-	{ type }: EventData,
-	now: number = Date.now(),
-): Event {
-	return {
-		type,
-		id: "1234",
-		created: now,
-	};
+export async function createEvent(eventData: EventData) {
+	return Event.create(eventData);
 }
 
-// FIXME: All users
-export async function readEvents() {
-	return Events;
+export async function readEvent() {
+	return Event.read();
 }

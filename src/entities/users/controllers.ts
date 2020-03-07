@@ -1,17 +1,25 @@
-import { User, UserData } from "./types";
-import { Users } from "./models";
-export function createUser(
-	{ email, phoneNumber }: UserData,
-	now: number = Date.now(),
-): User {
-	return {
-		id: "1234",
-		created: now,
-		email,
-		phoneNumber,
-	};
+import { UserData } from "./types";
+import User from "./models";
+
+export async function index(filters: any) {
+	return User.getMany(filters);
 }
 
-export async function readUsers() {
-	return Users;
+export async function get(id: string) {
+	return User.getOne(id);
 }
+
+export async function create(userData: UserData) {
+	return User.insert(userData);
+}
+
+export async function getByEmail(email: string) {
+	return User.getByEmail(email);
+}
+
+export default {
+	index,
+	get,
+	create,
+	getByEmail,
+};
