@@ -22,7 +22,7 @@ export async function insert(userData: UserData) {
 	return save(user);
 }
 
-export async function getMany(filters: any) {
+export async function getMany(query: any) {
 	return users;
 }
 

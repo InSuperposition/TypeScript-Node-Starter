@@ -20,7 +20,7 @@ export async function save(credential: CredentialsRow) {
 	return credentials;
 }
 
-export async function getMany(filters: any) {
+export async function getMany(query: any) {
 	return credentials;
 }
 

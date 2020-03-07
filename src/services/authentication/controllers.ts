@@ -1,9 +1,9 @@
 import { CredentialsRow, UserCredentials } from "./types";
 import { UserData, User as UserRow } from "../../entities/users/types";
-import { AUTHENTICATION_LOGIN_EVENT } from "./constants";
+import { AUTHENTICATION_LOGIN_EVENT_NAME } from "./constants";
 import Credential from "./models";
 import User from "../../entities/users/models";
-import { createEvent } from "../events/controllers";
+import Event from "../events/controllers";
 
 // mock transaction for creating a authenticated user
 export async function transact(credential: CredentialsRow, user: UserRow) {
@@ -18,8 +18,8 @@ export async function transact(credential: CredentialsRow, user: UserRow) {
 	}
 }
 
-export async function index(filters: any) {
-	return Credential.getMany(filters);
+export async function index(query: any) {
+	return Credential.getMany(query);
 }
 
 export async function login(
@@ -33,6 +33,7 @@ export async function login(
 		let user = await User.getByEmail(userCredentials.email);
 
 		// NS8-assessment requirement:
+		// could be a transaction, if this was an actual use case
 		// FIXME: currently creates user and credentials if one does not exist
 		const userUndefined = !user;
 		if (userUndefined) {
@@ -55,7 +56,11 @@ export async function login(
 				: credential.token;
 
 		// emit "LOGIN" event to event service
-		await createEvent(AUTHENTICATION_LOGIN_EVENT);
+		await Event.create({
+			...userCredentials,
+			userId: user.id,
+			type: AUTHENTICATION_LOGIN_EVENT_NAME,
+		});
 
 		return token;
 	} catch (err) {

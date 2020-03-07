@@ -9,8 +9,8 @@
 			"request": "attach",
 			"name": "Attach by Process ID",
 			"processId": "${command:PickProcess}",
-			"protocol": "inspector",
-			"preLaunchTask": "npm: build"
+			"protocol": "inspector"
+			// "preLaunchTask": "npm: build"
 		}
 	]
 }

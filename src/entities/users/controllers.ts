@@ -1,8 +1,8 @@
 import { UserData } from "./types";
 import User from "./models";
 
-export async function index(filters: any) {
-	return User.getMany(filters);
+export async function index(query: any) {
+	return User.getMany(query);
 }
 
 export async function get(id: string) {
