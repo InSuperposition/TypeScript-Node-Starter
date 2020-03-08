@@ -1,6 +1,6 @@
 import { config } from "dotenv";
 import express from "express";
-import AppRouter from "./routes";
+import routes from "./routes";
 
 // initialize .env files' variables
 config();
@@ -11,10 +11,7 @@ if (env.error) {
 
 // initialize app
 const app = express();
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use("/", AppRouter);
+app.use("/", routes);
 
 const port = Number(process.env.PORT) || 8443;
 

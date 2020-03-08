@@ -7,7 +7,7 @@ const router = Router();
 
 async function handleReadUsers(req: Request, res: Response) {
 	try {
-		const users = await index("test");
+		const users = await index();
 		return res.status(OK).json(users);
 	} catch (err) {
 		return res.status(BAD_REQUEST).json({
