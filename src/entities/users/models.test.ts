@@ -1,7 +1,11 @@
 import { User, UserData } from "./types";
-import { insert, getMany } from "./models";
+import { create, save, insert, getMany, getOne, getByEmail } from "./models";
 const { v4 } = jest.genMockFromModule("uuid");
-let now: jest.Mock<number>, userData: UserData, mockUser: User;
+let now: jest.Mock<number>,
+	userData: UserData,
+	mockUser: User,
+	mockUsers: Array<User>;
+
 describe("User model", () => {
 	beforeEach(() => {
 		const timestamp = 1234567890;
@@ -17,13 +21,54 @@ describe("User model", () => {
 			id: v4(),
 			created: now(),
 		};
+
+		mockUsers = [mockUser];
 	});
 
 	afterEach(() => {
 		now.mockReset();
 	});
-	it("should create a user", () => {
-		const newUser = insert(userData);
-		expect(newUser).toEqual(mockUser);
+	describe("create()", () => {
+		it("should return a new user object", async () => {
+			const newUser = await create(userData);
+			expect(newUser).toEqual(mockUser);
+		});
+	});
+
+	describe("save()", () => {
+		it("should create a user and store value", async () => {
+			const newUser = await save(mockUser);
+			expect(newUser).toEqual(mockUser);
+		});
+	});
+
+	describe("getMany()", () => {
+		it("should create a user and store value", async () => {
+			const emptyQuery = {};
+			const users = await getMany(emptyQuery);
+
+			expect(users).toEqual(mockUsers);
+		});
+	});
+
+	describe("getOne()", () => {
+		it("should create a user and store value", async () => {
+			const user = await getOne(mockUser.id);
+			expect(user).toEqual(mockUser);
+		});
+	});
+
+	describe("getByEmail()", () => {
+		it("should create a user and store value", async () => {
+			const user = await getByEmail(userData.email);
+			expect(user).toEqual(mockUser);
+		});
+	});
+
+	describe("insert()", () => {
+		it("should create a user and store value", async () => {
+			const newUser = await insert(userData);
+			expect(newUser).toEqual(mockUser);
+		});
 	});
 });

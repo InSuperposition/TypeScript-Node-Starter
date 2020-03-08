@@ -1,17 +1,19 @@
 import { Event, EventData } from "./types";
-import { create, read } from "./models";
-let now: jest.Mock<number>, eventData: EventData, mockEvent: Event;
+import { create, save, insert, getMany, getOne } from "./models";
+const { v4 } = jest.genMockFromModule("uuid");
+let now: jest.Mock<number>,
+	eventData: EventData,
+	mockEvent: Event,
+	mockEvents: Array<Event>;
 
 describe("Event model", () => {
 	beforeEach(() => {
-		jest.resetModules();
-		const { v4 } = jest.genMockFromModule("uuid");
-
 		const timestamp = 1234567890;
 		now = global.Date.now = jest.fn(() => timestamp);
 
 		eventData = {
-			type: "test-event",
+			type: "LOGIN",
+			userId: "user-id-1",
 		};
 
 		mockEvent = {
@@ -19,23 +21,48 @@ describe("Event model", () => {
 			id: v4(),
 			created: now(),
 		};
+
+		mockEvents = [mockEvent];
 	});
 
 	afterEach(() => {
-		jest.resetAllMocks();
+		now.mockReset();
 	});
 
 	describe("create()", () => {
-		it("should create a user", async () => {
-			const newEvent = await create(eventData);
-			expect(newEvent).toEqual(mockEvent);
+		it("should return a new event object", async () => {
+			const event = await create(eventData);
+			expect(event).toEqual(mockEvent);
 		});
 	});
 
-	describe("read()", () => {
-		it("should be empty", async () => {
-			const events = await read();
-			expect(events).toEqual([]);
+	describe("save()", () => {
+		it("should create a event and store value", async () => {
+			const event = await save(mockEvent);
+			expect(event).toEqual(mockEvent);
+		});
+	});
+
+	describe("getMany()", () => {
+		it("should create a event and store value", async () => {
+			const emptyQuery = {};
+			const events = await getMany(emptyQuery);
+
+			expect(events).toEqual(mockEvents);
+		});
+	});
+
+	describe("getOne()", () => {
+		it("should create a event and store value", async () => {
+			const event = await getOne(mockEvent.id);
+			expect(event).toEqual(mockEvent);
+		});
+	});
+
+	describe("insert()", () => {
+		it("should create a event and store value", async () => {
+			const event = await insert(eventData);
+			expect(event).toEqual(mockEvent);
 		});
 	});
 });

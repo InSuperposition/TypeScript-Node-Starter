@@ -1,7 +1,7 @@
 import { User, UserData } from "./types";
 import { v4 } from "uuid";
 
-let users: Array<User> = [];
+export let users: Array<User> = [];
 
 export async function create(userData: UserData) {
 	const user = {
@@ -14,7 +14,7 @@ export async function create(userData: UserData) {
 
 export async function save(user: User) {
 	users = [...users, user];
-	return users;
+	return user;
 }
 
 export async function insert(userData: UserData) {

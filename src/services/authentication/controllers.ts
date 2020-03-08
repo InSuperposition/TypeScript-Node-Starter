@@ -37,12 +37,13 @@ export async function login(
 		// FIXME: currently creates user and credentials if one does not exist
 		const userUndefined = !user;
 		if (userUndefined) {
-			user = await User.create(userData);
+			user = await User.insert(userData);
 		}
 
 		const credentialUndefined = !credential;
 		if (credentialUndefined) {
-			credential = await Credential.create(userCredentials, user.id);
+			const creds = { ...userCredentials, userId: user.id };
+			credential = await Credential.insert(creds);
 		}
 
 		// confirm password
@@ -56,7 +57,7 @@ export async function login(
 				: credential.token;
 
 		// emit "LOGIN" event to event service
-		await Event.create({
+		await Event.insert({
 			userId: user.id,
 			type: AUTHENTICATION_LOGIN_EVENT_NAME,
 		});

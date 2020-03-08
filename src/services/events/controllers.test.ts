@@ -1,16 +1,19 @@
+import { index, get, create, save } from "./controllers";
 import { Event, EventData } from "./types";
-import { createEvent, readEvent } from "./controllers";
-let eventData: EventData, mockEvent: Event;
-
 const { v4 } = jest.genMockFromModule("uuid");
+let now: jest.Mock<number>,
+	eventData: EventData,
+	mockEvent: Event,
+	mockEvents: Array<Event>;
 
-const timestamp = 1234567890;
-const now: jest.Mock<number> = (global.Date.now = jest.fn(() => timestamp));
-
-describe("Event model", () => {
+describe("Event controllers", () => {
 	beforeEach(() => {
+		const timestamp = 1234567890;
+		now = global.Date.now = jest.fn(() => timestamp);
+
 		eventData = {
-			type: "test-event",
+			type: "LOGIN",
+			userId: "user-id-1",
 		};
 
 		mockEvent = {
@@ -18,19 +21,39 @@ describe("Event model", () => {
 			id: v4(),
 			created: now(),
 		};
+
+		mockEvents = [mockEvent];
 	});
 
-	describe("read()", () => {
-		it("should be empty", async () => {
-			const events = await readEvent();
-			expect(events).toEqual([]);
-		});
+	afterEach(() => {
+		now.mockReset();
 	});
 
 	describe("create()", () => {
-		it("should create a user", async () => {
-			const newEvent = await createEvent(eventData);
-			expect(newEvent).toEqual(mockEvent);
+		it("should return all events", async () => {
+			const event = await create(eventData);
+			expect(event).toEqual(mockEvent);
+		});
+	});
+
+	describe("save()", () => {
+		it("should return all events", async () => {
+			const event = await save(mockEvent);
+			expect(event).toEqual(mockEvent);
+		});
+	});
+
+	describe("index()", () => {
+		it("should return all events", async () => {
+			const events = await index();
+			expect(events).toEqual(mockEvents);
+		});
+	});
+
+	describe("get()", () => {
+		it("should return all events", async () => {
+			const event = await get(mockEvent.id);
+			expect(event).toEqual(mockEvent);
 		});
 	});
 });

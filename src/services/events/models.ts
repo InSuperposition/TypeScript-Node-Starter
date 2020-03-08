@@ -2,16 +2,8 @@ import { isToday } from "date-fns";
 import { Event, EventData } from "./types";
 import { v4 } from "uuid";
 
-export let events: Array<Event> = [
-	{
-		type: "LOGIN",
-		email: "test@test.com",
-		password: "salt",
-		userId: "user-id-1",
-		id: "epoch-event-id-1",
-		created: 0,
-	},
-];
+export let events: Array<Event> = [];
+
 export async function create(eventData: EventData) {
 	const event = {
 		...eventData,
@@ -19,8 +11,17 @@ export async function create(eventData: EventData) {
 		created: Date.now(),
 	};
 
+	return event;
+}
+
+export async function save(event: Event) {
 	events = [...events, event];
 	return event;
+}
+
+export async function insert(eventData: EventData) {
+	const event = await create(eventData);
+	return save(event);
 }
 
 export async function getMany(query: any) {
@@ -31,9 +32,9 @@ export async function getMany(query: any) {
 
 export async function getOne(id: string) {
 	const event = events.find(evt => {
-		return evt.userId === id;
+		return evt.id === id;
 	});
 	return event;
 }
 
-export default { create, getMany, getOne };
+export default { create, save, insert, getMany, getOne };

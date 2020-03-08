@@ -3,10 +3,9 @@ export let credentials: Array<CredentialsRow> = [];
 
 import { v4 } from "uuid";
 
-export async function create(userCredentials: UserCredentials, userId: string) {
+export async function create(userCredentials: UserCredentials) {
 	const credential = {
 		...userCredentials,
-		userId,
 		id: v4(),
 		created: Date.now(),
 		// mock up token, use middleware to handle
@@ -17,7 +16,12 @@ export async function create(userCredentials: UserCredentials, userId: string) {
 
 export async function save(credential: CredentialsRow) {
 	credentials = [...credentials, credential];
-	return credentials;
+	return credential;
+}
+
+export async function insert(userCredentials: UserCredentials) {
+	const credential = await create(userCredentials);
+	return save(credential);
 }
 
 export async function getMany(query: any) {
@@ -29,4 +33,4 @@ export async function getByEmail(email: string) {
 	return credential;
 }
 
-export default { getMany, getByEmail, create, save };
+export default { getMany, getByEmail, create, save, insert };

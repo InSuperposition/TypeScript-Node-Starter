@@ -1,16 +1,20 @@
-import { EventData } from "./types";
-import Event from "./models";
+import { Event, EventData } from "./types";
+import EventModel from "./models";
 
-export async function index(query: any) {
-	return Event.getMany(query);
+export async function index(query: any = {}) {
+	return EventModel.getMany(query);
 }
 
 export async function get(id: string) {
-	return Event.getOne(id);
+	return EventModel.getOne(id);
 }
 
 export async function create(eventData: EventData) {
-	return Event.create(eventData);
+	return EventModel.create(eventData);
+}
+
+export async function save(event: Event) {
+	return EventModel.save(event);
 }
 
 export default {
