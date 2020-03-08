@@ -1,3 +1,4 @@
+import { QueryParams } from "../../types";
 import { User, UserData } from "./types";
 import { v4 } from "uuid";
 
@@ -22,7 +23,7 @@ export async function insert(userData: UserData) {
 	return save(user);
 }
 
-export async function getMany(query: any) {
+export async function getMany(queryParams: QueryParams) {
 	return users;
 }
 

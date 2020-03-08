@@ -14,8 +14,9 @@ async function handleLogin(req: Request, res: Response) {
 		// FIXME: add data validation
 
 		// TODO: implement authentication middleware
-		const credentials = { email, password };
+
 		const userData = { ...restUser, email };
+		const credentials = { email, password };
 		const token = await login(credentials, userData);
 
 		return res

@@ -1,8 +1,9 @@
+import { QueryParams } from "../../types";
 import { User, UserData } from "./types";
 import UserModel from "./models";
 
-export async function index(query: any = {}) {
-	return UserModel.getMany(query);
+export async function index(queryParams: QueryParams = {}) {
+	return UserModel.getMany(queryParams);
 }
 
 export async function get(id: string) {

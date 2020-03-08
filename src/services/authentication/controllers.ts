@@ -1,4 +1,5 @@
-import { CredentialsRow, UserCredentials } from "./types";
+import { QueryParams } from "../../types";
+import { CredentialsRow, UserCredential } from "./types";
 import { UserData, User as UserRow } from "../../entities/users/types";
 import { AUTHENTICATION_LOGIN_EVENT_NAME } from "./constants";
 import Credential from "./models";
@@ -18,19 +19,19 @@ export async function transact(credential: CredentialsRow, user: UserRow) {
 	}
 }
 
-export async function index(query: any) {
-	return Credential.getMany(query);
+export async function index(queryParams: QueryParams) {
+	return Credential.getMany(queryParams);
 }
 
 export async function login(
-	userCredentials: UserCredentials,
+	userCredential: UserCredential,
 	userData: UserData,
 ) {
 	try {
-		let credential = await Credential.getByEmail(userCredentials.email);
+		let credential = await Credential.getByEmail(userCredential.email);
 
 		// confirm if email is valid (exists in User table)
-		let user = await User.getByEmail(userCredentials.email);
+		let user = await User.getByEmail(userCredential.email);
 
 		// NS8-assessment requirement:
 		// could be a transaction, if this was an actual use case
@@ -42,12 +43,11 @@ export async function login(
 
 		const credentialUndefined = !credential;
 		if (credentialUndefined) {
-			const creds = { ...userCredentials, userId: user.id };
-			credential = await Credential.insert(creds);
+			credential = await Credential.insert(userCredential, user.id);
 		}
 
 		// confirm password
-		if (credential.password !== userCredentials.password) {
+		if (credential.password !== userCredential.password) {
 			throw new Error("Incorrect password");
 		}
 

@@ -1,15 +1,17 @@
-import { CredentialsRow, UserCredentials } from "./types";
+import { QueryParams } from "../../types";
+import { CredentialsRow, UserCredential } from "./types";
 export let credentials: Array<CredentialsRow> = [];
 
 import { v4 } from "uuid";
 
-export async function create(userCredentials: UserCredentials) {
+export async function create(userCredential: UserCredential, userId: string) {
 	const credential = {
-		...userCredentials,
+		...userCredential,
 		id: v4(),
 		created: Date.now(),
 		// mock up token, use middleware to handle
 		token: v4(),
+		userId,
 	};
 	return credential;
 }
@@ -19,12 +21,12 @@ export async function save(credential: CredentialsRow) {
 	return credential;
 }
 
-export async function insert(userCredentials: UserCredentials) {
-	const credential = await create(userCredentials);
+export async function insert(userCredential: UserCredential, userId: string) {
+	const credential = await create(userCredential, userId);
 	return save(credential);
 }
 
-export async function getMany(query: any) {
+export async function getMany(queryParams: QueryParams) {
 	return credentials;
 }
 

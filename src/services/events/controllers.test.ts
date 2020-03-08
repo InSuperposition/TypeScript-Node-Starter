@@ -1,4 +1,4 @@
-import { index, get, create, save } from "./controllers";
+import { index, get, create, save, insert } from "./controllers";
 import { Event, EventData } from "./types";
 const { v4 } = jest.genMockFromModule("uuid");
 let now: jest.Mock<number>,
@@ -30,14 +30,14 @@ describe("Event controllers", () => {
 	});
 
 	describe("create()", () => {
-		it("should return all events", async () => {
+		it("should create a new event", async () => {
 			const event = await create(eventData);
 			expect(event).toEqual(mockEvent);
 		});
 	});
 
 	describe("save()", () => {
-		it("should return all events", async () => {
+		it("should persist an event", async () => {
 			const event = await save(mockEvent);
 			expect(event).toEqual(mockEvent);
 		});
@@ -51,8 +51,15 @@ describe("Event controllers", () => {
 	});
 
 	describe("get()", () => {
-		it("should return all events", async () => {
+		it("should return an event by `id`", async () => {
 			const event = await get(mockEvent.id);
+			expect(event).toEqual(mockEvent);
+		});
+	});
+
+	describe("insert()", () => {
+		it("should create and persist a new event", async () => {
+			const event = await insert(eventData);
 			expect(event).toEqual(mockEvent);
 		});
 	});

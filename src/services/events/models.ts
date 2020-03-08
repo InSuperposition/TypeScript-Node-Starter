@@ -1,4 +1,5 @@
 import { isToday } from "date-fns";
+import { QueryParams } from "../../types";
 import { Event, EventData } from "./types";
 import { v4 } from "uuid";
 
@@ -24,9 +25,9 @@ export async function insert(eventData: EventData) {
 	return save(event);
 }
 
-export async function getMany(query: any) {
+export async function getMany(queryParams: QueryParams) {
 	return events.filter(evt => {
-		return query.today === "true" ? isToday(evt.created) : true;
+		return queryParams.today === "true" ? isToday(evt.created) : true;
 	});
 }
 

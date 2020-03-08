@@ -1,13 +1,13 @@
-export interface UserCredentials {
+export interface UserCredential {
 	email: string;
 	password: string;
-	// foreign key
-	userId: string;
 }
 
-export interface CredentialsRow extends UserCredentials {
+export interface CredentialsRow extends UserCredential {
 	// primary key
 	id: string;
 	created: number;
 	token: string;
+	// foreign key
+	userId: string;
 }

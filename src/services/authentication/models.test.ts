@@ -1,31 +1,8 @@
-// import { CredentialsRow, UserCredentials } from "./types";
-// import { create, read } from "./models";
-// let now: jest.Mock<number>, userCredentials: UserCredentials, mockCredential: CredentialsRow;
-
-// describe("CredentialsRow model", () => {
-// 	beforeEach(() => {
-// 		jest.resetModules();
-// 		const { v4 } = jest.genMockFromModule("uuid");
-
-// 		const timestamp = 1234567890;
-// 		now = global.Date.now = jest.fn(() => timestamp);
-
-// 		userCredentials = {
-// 			type: "test-credential",
-// 		};
-
-// 		mockCredential = {
-// 			...userCredentials,
-// 			id: v4(),
-// 			created: now(),
-// 		};
-// 	});
-
-import { CredentialsRow, UserCredentials } from "./types";
+import { CredentialsRow, UserCredential } from "./types";
 import { create, save, insert, getMany, getByEmail } from "./models";
 const { v4 } = jest.genMockFromModule("uuid");
 let now: jest.Mock<number>,
-	userCredentials: UserCredentials,
+	userCredential: UserCredential,
 	mockCredential: CredentialsRow,
 	mockCredentials: Array<CredentialsRow>;
 
@@ -34,17 +11,17 @@ describe("Authentication model", () => {
 		const timestamp = 1234567890;
 		now = global.Date.now = jest.fn(() => timestamp);
 
-		userCredentials = {
+		userCredential = {
 			email: "test@test.com",
 			password: "test-password",
-			userId: "user-id-1",
 		};
 
 		mockCredential = {
-			...userCredentials,
+			...userCredential,
 			id: v4(),
 			created: now(),
 			token: v4(),
+			userId: v4(),
 		};
 
 		mockCredentials = [mockCredential];
@@ -56,7 +33,7 @@ describe("Authentication model", () => {
 
 	describe("create()", () => {
 		it("should return a new credential object", async () => {
-			const credential = await create(userCredentials);
+			const credential = await create(userCredential, mockCredential.id);
 			expect(credential).toEqual(mockCredential);
 		});
 	});
@@ -79,7 +56,7 @@ describe("Authentication model", () => {
 
 	describe("insert()", () => {
 		it("should create a credential and store value", async () => {
-			const credential = await insert(userCredentials);
+			const credential = await insert(userCredential, mockCredential.id);
 			expect(credential).toEqual(mockCredential);
 		});
 	});
