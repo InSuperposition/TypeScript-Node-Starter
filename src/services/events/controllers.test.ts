@@ -1,4 +1,4 @@
-import { index, get, create, save, insert } from "./controllers";
+import { index, getByUserId, create, save, insert } from "./controllers";
 import { Event, EventData } from "./types";
 const { v4 } = jest.genMockFromModule("uuid");
 let now: jest.Mock<number>,
@@ -52,7 +52,7 @@ describe("Event controllers", () => {
 
 	describe("get()", () => {
 		it("should return an event by `id`", async () => {
-			const event = await get(mockEvent.id);
+			const event = await getByUserId(mockEvent.userId);
 			expect(event).toEqual(mockEvent);
 		});
 	});

@@ -31,11 +31,11 @@ export async function getMany(queryParams: QueryParams) {
 	});
 }
 
-export async function getOne(id: string) {
+export async function getByUserId(id: string) {
 	const event = events.find(evt => {
-		return evt.id === id;
+		return evt.userId === id;
 	});
 	return event;
 }
 
-export default { create, save, insert, getMany, getOne };
+export default { create, save, insert, getMany, getByUserId };

@@ -1,5 +1,5 @@
 import { Event, EventData } from "./types";
-import { create, save, insert, getMany, getOne } from "./models";
+import { create, save, insert, getMany, getByUserId } from "./models";
 const { v4 } = jest.genMockFromModule("uuid");
 let now: jest.Mock<number>,
 	eventData: EventData,
@@ -54,7 +54,7 @@ describe("Event model", () => {
 
 	describe("getOne()", () => {
 		it("should return one event", async () => {
-			const event = await getOne(mockEvent.id);
+			const event = await getByUserId(mockEvent.userId);
 			expect(event).toEqual(mockEvent);
 		});
 	});

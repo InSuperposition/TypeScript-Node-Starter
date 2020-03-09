@@ -6,8 +6,8 @@ export async function index(queryParams: QueryParams = {}) {
 	return EventModel.getMany(queryParams);
 }
 
-export async function get(id: string) {
-	return EventModel.getOne(id);
+export async function getByUserId(id: string) {
+	return EventModel.getByUserId(id);
 }
 
 export async function create(eventData: EventData) {
@@ -36,7 +36,7 @@ export async function insert(eventData: EventData) {
 
 export default {
 	index,
-	get,
+	getByUserId,
 	create,
 	insert,
 	save,

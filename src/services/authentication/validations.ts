@@ -1,10 +1,12 @@
 import joi from "@hapi/joi";
-const userCredentialSchema = joi.object().keys({
+const userCredentialSchema = joi.object({
 	email: joi.string().required(),
 	password: joi.string().required(),
 });
 
-const credentialsRowSchema = userCredentialSchema.keys({
+const credentialsRowSchema = joi.object({
+	email: joi.string().required(),
+	password: joi.string().required(),
 	id: joi.string().required(),
 	created: joi.number().required(),
 });

@@ -1,10 +1,12 @@
 import joi from "@hapi/joi";
-const eventDataSchema = joi.object().keys({
+const eventDataSchema = joi.object({
 	type: joi.string().required(),
 	userId: joi.string().required(),
 });
 
-const eventSchema = eventDataSchema.keys({
+const eventSchema = joi.object({
+	type: joi.string().required(),
+	userId: joi.string().required(),
 	id: joi.string().required(),
 	created: joi.number().required(),
 });

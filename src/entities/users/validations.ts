@@ -1,10 +1,12 @@
 import joi from "@hapi/joi";
-const userDataSchema = joi.object().keys({
+const userDataSchema = joi.object({
 	email: joi.string(),
 	phoneNumber: joi.string(),
 });
 
-const userSchema = userDataSchema.keys({
+const userSchema = joi.object({
+	email: joi.string(),
+	phoneNumber: joi.string(),
 	id: joi.string(),
 	created: joi.number(),
 });
