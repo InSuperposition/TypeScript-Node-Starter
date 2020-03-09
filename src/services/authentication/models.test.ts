@@ -39,14 +39,14 @@ describe("Authentication model", () => {
 	});
 
 	describe("save()", () => {
-		it("should create a credential and store value", async () => {
+		it("should store credential", async () => {
 			const credential = await save(mockCredential);
 			expect(credential).toEqual(mockCredential);
 		});
 	});
 
 	describe("getMany()", () => {
-		it("should create a credential and store value", async () => {
+		it("should return credentials index", async () => {
 			const emptyQuery = {};
 			const credentials = await getMany(emptyQuery);
 

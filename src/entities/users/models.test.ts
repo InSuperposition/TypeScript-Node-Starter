@@ -36,14 +36,14 @@ describe("User model", () => {
 	});
 
 	describe("save()", () => {
-		it("should create a user and store value", async () => {
+		it("should store user", async () => {
 			const newUser = await save(mockUser);
 			expect(newUser).toEqual(mockUser);
 		});
 	});
 
 	describe("getMany()", () => {
-		it("should create a user and store value", async () => {
+		it("should return users index", async () => {
 			const emptyQuery = {};
 			const users = await getMany(emptyQuery);
 
@@ -52,14 +52,14 @@ describe("User model", () => {
 	});
 
 	describe("getOne()", () => {
-		it("should create a user and store value", async () => {
+		it("should return a user by `id`", async () => {
 			const user = await getOne(mockUser.id);
 			expect(user).toEqual(mockUser);
 		});
 	});
 
 	describe("getByEmail()", () => {
-		it("should create a user and store value", async () => {
+		it("should return a user by `email`", async () => {
 			const user = await getByEmail(userData.email);
 			expect(user).toEqual(mockUser);
 		});

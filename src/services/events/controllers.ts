@@ -27,11 +27,11 @@ export async function save(event: Event) {
 }
 
 export async function insert(eventData: EventData) {
-	const { value, error } = validateEventData(eventData);
+	const { error } = validateEventData(eventData);
 	if (!!error) {
 		throw error;
 	}
-	return EventModel.insert(value);
+	return EventModel.insert(eventData);
 }
 
 export default {

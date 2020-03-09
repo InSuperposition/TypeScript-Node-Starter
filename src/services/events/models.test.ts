@@ -37,14 +37,14 @@ describe("Event model", () => {
 	});
 
 	describe("save()", () => {
-		it("should create a event and store value", async () => {
+		it("should store event", async () => {
 			const event = await save(mockEvent);
 			expect(event).toEqual(mockEvent);
 		});
 	});
 
 	describe("getMany()", () => {
-		it("should create a event and store value", async () => {
+		it("should return events", async () => {
 			const emptyQuery = {};
 			const events = await getMany(emptyQuery);
 
@@ -53,7 +53,7 @@ describe("Event model", () => {
 	});
 
 	describe("getOne()", () => {
-		it("should create a event and store value", async () => {
+		it("should return one event", async () => {
 			const event = await getOne(mockEvent.id);
 			expect(event).toEqual(mockEvent);
 		});

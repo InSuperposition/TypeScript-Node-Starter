@@ -32,7 +32,7 @@ async function handleLogin(req: Request, res: Response) {
 
 async function handleIndex(req: Request, res: Response) {
 	try {
-		const credentials = await index({});
+		const credentials = await index();
 		return res.status(OK).json(credentials);
 	} catch (err) {
 		return res.status(BAD_REQUEST).json({

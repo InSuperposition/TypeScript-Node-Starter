@@ -11,6 +11,10 @@ if (env.error) {
 
 // initialize app
 const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use("/", routes);
 
 const port = Number(process.env.PORT) || 8443;
