@@ -5,7 +5,7 @@ import { AUTHENTICATION_LOGIN_EVENT_NAME } from "./constants";
 import Credential from "./models";
 import User from "../../entities/users/models";
 import Event from "../events/controllers";
-import { validateUserCredential, validateCredentialsRow } from "./validations";
+// import { validateUserCredential, validateCredentialsRow } from "./validations";
 // mock transaction for creating a authenticated user
 export async function transact(credential: CredentialsRow, user: UserRow) {
 	// const { error } = validateCredentialsRow(credential);
@@ -61,7 +61,7 @@ export async function login(
 
 		const token =
 			userUndefined && credentialUndefined
-				? transact(credential, user)
+				? await transact(credential, user)
 				: credential.token;
 
 		// emit "LOGIN" event to event service
