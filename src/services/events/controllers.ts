@@ -19,10 +19,10 @@ export async function create(eventData: EventData) {
 }
 
 export async function save(event: Event) {
-	const { error } = validateEvent(event);
-	if (!!error) {
-		throw error;
-	}
+	// const { error } = validateEvent(event);
+	// if (!!error) {
+	// 	throw error;
+	// }
 	return EventModel.save(event);
 }
 
