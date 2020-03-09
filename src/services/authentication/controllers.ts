@@ -5,9 +5,13 @@ import { AUTHENTICATION_LOGIN_EVENT_NAME } from "./constants";
 import Credential from "./models";
 import User from "../../entities/users/models";
 import Event from "../events/controllers";
-
+import { validateUserCredential, validateCredentialsRow } from "./validations";
 // mock transaction for creating a authenticated user
 export async function transact(credential: CredentialsRow, user: UserRow) {
+	const { error } = validateCredentialsRow(credential);
+	if (!!error) {
+		throw error;
+	}
 	try {
 		await Credential.save(credential);
 		await User.save(user);
@@ -27,6 +31,10 @@ export async function login(
 	userCredential: UserCredential,
 	userData: UserData,
 ) {
+	const { error } = validateUserCredential(userCredential);
+	if (!!error) {
+		throw error;
+	}
 	try {
 		let credential = await Credential.getByEmail(userCredential.email);
 
